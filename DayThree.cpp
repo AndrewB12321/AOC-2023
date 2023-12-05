@@ -17,10 +17,8 @@ int main(int argc, char* argv[]) {
 
     while(getline(input,line)) {
         for(int i = 0; i < 141; i++){
-            if(isdigit(line[i])) temp << i;
-            else temp << line[i];
+            
         }
-        temp << "\n";
     }
 
     input.close();

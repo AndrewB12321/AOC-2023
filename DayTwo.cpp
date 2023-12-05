@@ -26,12 +26,17 @@ int main(int argc, char* argv[]) {
     for(int i = 1; i <= 100; i++){
         bool isValid = true;
         getline(input, line);
+        //each vector holds a bunch of strings taken from the line formatted as "n color"
+        //where n is the number drawn, and color is the color. 
         std::vector<std::string> greenDraws;
         std::vector<std::string> redDraws;
         std::vector<std::string> blueDraws;
+        //honestly dont really know what these do, but are needed for the 
+        //regex to work properly 
         std::smatch greenStrings;
         std::smatch redStrings;
         std::smatch blueStrings;
+        //This actually uses the regex to fill the vectors
         greenDraws = getMatches(line, greenStrings, regex_green);
         redDraws = getMatches(line, redStrings, regex_red);
         blueDraws = getMatches(line, blueStrings, regex_blue);
@@ -40,6 +45,8 @@ int main(int argc, char* argv[]) {
             std::cout << s << " " << std::endl;
         }
         */
+        // isValid starts at 1, anding it with the results means 
+        //if one fails, all the other ones fail aswell.
         isValid = isValid && areTrialsValid(greenDraws, MAXGREEN);
         /*
         for(auto s:redDraws){
@@ -54,7 +61,7 @@ int main(int argc, char* argv[]) {
         */
         isValid = isValid && areTrialsValid(blueDraws, MAXBLUE);
         std::cout << "gameID: " << i << " " << std::boolalpha << line << "\n**this game is valid: " << isValid << "\ncurrent total: " << IDTotal << std::endl << std::endl;
-
+        //if all of the trials of each colors passed, isValid will still be true, if any of them failed it will be 0
         if(isValid) IDTotal += i;
     }
 
@@ -63,7 +70,7 @@ int main(int argc, char* argv[]) {
     return 0;
 }
 
-// takes in a vector of strings where each string has the form /d+ color
+// takes in a vector of strings where each string has the form "n color"
 std::vector<std::string> getMatches(std::string line, std::smatch& srx, const std::regex& rx){
     std::vector<std::string> matches;
     while(std::regex_search(line, srx, rx)){
