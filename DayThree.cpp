@@ -8,6 +8,12 @@
 a vector with all the indexes of the symbols on that line
 */
 std::vector<int> findSymbolIndexes(std::string s);
+
+int getSum(std::string s. int index);
+
+int getWholeNumber(int index);
+
+
 int main(int argc, char* argv[]) {
     std::ifstream input;
     std::ofstream temp;
@@ -42,4 +48,15 @@ std::vector<int> findSymbolIndexes(std::string s) {
         }
      }
      return indices;
+}
+
+int getSum(std::string s. int index) {
+    return 0;
+}
+/*
+    takes the index of a digit,
+    and gets the whole number surrounding that digit
+*/
+int getWholeNumber(int index){
+    return 0;
 }
