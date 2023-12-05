@@ -71,6 +71,8 @@ int main(int argc, char* argv[]) {
 }
 
 // takes in a vector of strings where each string has the form "n color"
+// *inportant* line is passed in as a value and not a reference, because I modify the input in this function,
+// but need the whole line to stay intact as this proccess gets repeated 3 times per line.
 std::vector<std::string> getMatches(std::string line, std::smatch& srx, const std::regex& rx){
     std::vector<std::string> matches;
     while(std::regex_search(line, srx, rx)){
