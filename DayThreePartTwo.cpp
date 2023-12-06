@@ -11,6 +11,7 @@ in my puzzle input so I didnt worry about it
 #include <string>
 #include <set>
 #include <cmath>
+#include <numeric>
 #define ROW_LENGTH 140
 /* takes in a line from the file and returns
 a vector with all the indexes of the symbols on that line
@@ -36,13 +37,11 @@ int main(int argc, char* argv[]) {
 
     getline(input, s1);
     getline(input, s2);
-    //std::cout << getWholeNumber(s1, 5);
     while(getline(input, s3)){
         std::vector<int> indices = findSymbolIndexes(s2);
         for(auto i:indices) {
             totalSum += getSum(s1, s2, s3, i);
         }
-        //std::cout << "total sum of first 3 lines is " << totalSum << std::endl;
         s1 = s2;
         s2 = s3;
     
@@ -59,7 +58,7 @@ std::vector<int> findSymbolIndexes(std::string s) {
     std::vector<int> indices;
     //std::cout << s << std::endl;
      for(int i = 0; i < s.size() - 1; i++){
-        if(s[i] != '.' && !isdigit(s[i])) {
+        if(s[i] == '*') {
             indices.push_back(i);
         }
      }
@@ -68,7 +67,7 @@ std::vector<int> findSymbolIndexes(std::string s) {
 
 int getSum(std::string s1, std::string s2, std::string s3, int index) {
     std::set<int> validNumbers;
-    int numberSum = 0;
+    int numberProduct = 0;
     for(int i = index - 1; i <= index + 1; i++){
         if(isdigit(s1[i])) validNumbers.insert(getWholeNumber(s1, i));
     }
@@ -78,11 +77,10 @@ int getSum(std::string s1, std::string s2, std::string s3, int index) {
     for(int i = index - 1; i <= index + 1; i++){
         if(isdigit(s3[i])) validNumbers.insert(getWholeNumber(s3, i));
     }
-
-for(auto i:validNumbers){
-    numberSum += i;
-}
-    return numberSum;
+    if(validNumbers.size() == 2){
+        numberProduct = std::accumulate(validNumbers.begin(), validNumbers.end(), 1, std::multiplies<int>());
+    }
+    return numberProduct;
 }
 /*
     takes the index of a digit,

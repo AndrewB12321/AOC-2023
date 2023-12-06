@@ -1,5 +1,5 @@
 default:
-	g++ DayThree.cpp -o DayThree
-	./DayThree inputEngine.txt > output.txt
+	g++ DayFour.cpp -o DayFour
+	./DayFour lottery.txt > output.txt
 clean:
-	rm DayThree a.out
+	rm DayFour a.out
